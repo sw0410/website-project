@@ -1,0 +1,58 @@
+/* 1. 모든 요소의 여백 초기화 및 박스 크기 계산 기준 설정 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. 전체 페이지 기본 폰트 및 배경 설정 */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333333;
+  background-color: #f9f9f9;
+}
+
+/* 3. 상단 헤더 */
+header {
+  background-color: #ffffff;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+/* 4. 본문 영역 (가운데 정렬의 핵심) */
+main {
+  max-width: 800px;        /* 화면이 아무리 커져도 최대 800px까지만 늘어남 */
+  margin: 2rem auto;       /* 상하 여백 2rem, 좌우 여백 auto(자동 균등 분배로 중앙 정렬) */
+  padding: 0 1rem;         /* 화면이 800px보다 좁아질 때 화면 끝에 글자가 붙지 않도록 방어 */
+}
+
+/* 개별 섹션 카드 스타일 */
+section {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;   /* 섹션 간의 세로 간격 */
+}
+
+section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #2d3748;
+}
+
+/* 5. 하단 푸터 */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #718096;
+  font-size: 0.875rem;
+}

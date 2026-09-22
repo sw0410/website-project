@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포트폴리오</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. 상단 영역: 사이트 제목이나 메뉴가 들어가는 곳 -->
+  <header>
+    <h1>포트폴리오</h1>
+  </header>
+
+  <!-- 2. 본문 영역: 페이지의 핵심 콘텐츠가 들어가는 곳 -->
+  <main>
+    <!-- 자기소개 섹션 -->
+    <section id="about">
+      <h2>소개</h2>
+      <p>안녕하세요! 웹 개발자 포트폴리오입니다.</p>
+    </section>
+
+    <!-- GitHub 프로젝트 목록 섹션 -->
+    <section id="projects">
+      <h2>프로젝트</h2>
+
+      <!-- 1. 비동기 상태 메시지 영역 (로딩, 에러, 빈 결과) -->
+      <div id="status-message" role="status">
+        프로젝트를 불러오는 중입니다...
+      </div>
+
+      <!-- 2. 실제 GitHub 저장소 카드들이 동적으로 들어갈 컨테이너 -->
+      <div id="repo-list">
+        <!-- 나중에 JavaScript가 아래와 같은 카드를 반복해서 생성해 넣습니다 -->
+        <!-- 
+        <article class="repo-card">
+          <h3><a href="...">저장소 이름</a></h3>
+          <p>저장소 설명</p>
+          <span>★ 5</span>
+        </article>
+        -->
+      </div>
+    </section>
+  </main>
+
+  <!-- 3. 하단 영역: 저작권, 연락처 등이 들어가는 곳 -->
+  <footer>
+    <p>&copy; 2026 내 이름. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
