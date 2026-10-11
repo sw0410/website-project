@@ -27,9 +27,70 @@
     #projects { background-color: #ffffff; }
     #contact { background-color: #f0f4f8; }
     footer { background-color: #333333; color: #ffffff; }
+
+    #menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    }
+
+    #menu-links {
+      display: flex;
+      gap: 20px;
+    }
+    nav {
+      background: white;
+      padding: 16px;
+      position: sticky;
+      top: 0;
+    }
+    
+    @media (max-width: 600px)
+    {
+      nav {
+        display: flex;
+        gap: 12px;
+        background: white;
+        padding: 12px;
+        position: sticky;
+        top: 0;
+        flex-direction: column;
+      }
+      header, section, footer{
+        padding: 32px 16px;
+      }
+      header h1 {
+        font-size: 1.4rem; 
+      }
+      #menu-btn { display: block; }
+
+      #menu-links {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #menu-links.open { display: flex; }  
+      
+    }
+    html { scroll-behavior: smooth; }
+    /* section { min-height: 100vh; } */
+  
+    
   </style>
 </head>
 <body>
+
+  <nav>
+    <button id="menu-btn" aria-label="메뉴 열기">☰</button>
+    <div id="menu-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
   <!-- 1. Hero 섹션: 사이트의 첫인상 -->
   <header id="hero">
@@ -66,5 +127,12 @@
     <p>© 2026 내 이름. All rights reserved.</p>
   </footer>
 
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const links = document.getElementById("menu-links");
+    menuBtn.addEventListener("click", function () {
+      links.classList.toggle("open");
+    });
+  </script>
 </body>
 </html>
