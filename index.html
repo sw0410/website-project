@@ -177,6 +177,7 @@
     const menuBtn = document.getElementById("menu-btn");
     const links = document.getElementById("menu-links");
     menuBtn.addEventListener("click", function () {
+      
       links.classList.toggle("open");
     });
 
@@ -195,7 +196,7 @@
     });
 
 
-    const STATE = { theme: "light" };
+    const STATE = { theme: "light", menuOpen: false };
 
     function render() {
       document.documentElement.classList.toggle("dark", STATE.theme === "dark");
@@ -214,7 +215,7 @@
     if (localStorage.getItem("theme") === "dark") {
       STATE.theme = "dark";
     }
-    render();
+    render(links.classList.toggle("open", STATE.menuOpen));
   </script>
 </body>
 </html>
