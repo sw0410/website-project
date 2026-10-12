@@ -199,8 +199,17 @@
     // 새로고침하면 이름표가 사라진다. 저장은 세트 6(localStorage)에서 한다.
     const themeBtn = document.getElementById("theme-btn");
     themeBtn.addEventListener("click", function () {
-    document.documentElement.classList.toggle("dark");
+      document.documentElement.classList.toggle("dark");
+      if (document.documentElement.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
+      }
     });
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
   </script>
 </body>
 </html>
