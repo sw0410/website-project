@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 포트폴리오</title>
 <style>
+    :root {
+      --text: #333333;
+    }
     /* 기본 리셋: 여백 제거 및 박스 크기 기준 설정 */
     * {
       box-sizing: border-box;
@@ -14,6 +17,7 @@
     body {
       font-family: sans-serif;
       line-height: 1.6;
+      color: var(--text);
     }
     /* 6개 섹션이 눈에 잘 보이도록 색상과 여백 부여 */
     header, section, footer {
@@ -138,6 +142,12 @@
   </footer>
 
   <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const links = document.getElementById("menu-links");
+    menuBtn.addEventListener("click", function () {
+      links.classList.toggle("open");
+    });
+
     const targets = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
