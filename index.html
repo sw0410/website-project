@@ -12,7 +12,10 @@
       --text: #333333;
       --bg: #ffffff;
       --bg-alt: #f0f4f8;
+      --font-main: sans-serif;
+      --font-heading: serif;
     }
+    h1, h2 { font-family: var(--font-heading); }
     /* [세트 5 / 평가 3-1] 화면 업데이트: html에 dark 이름표가 붙으면 변수 값이 바뀌고,
        var(--...)를 쓰는 모든 곳의 색이 따라 바뀐다. 이 블록이 없으면 이름표만 붙고 화면은 그대로다. */
     :root.dark {
@@ -29,7 +32,7 @@
     }
     /* [세트 5] body에 color를 지정하면 자식 요소가 상속받는다. 단, 자기 color가 있는 요소(footer 등)는 따르지 않는다. */
     body {
-      font-family: sans-serif;
+      font-family: var(--font-main);
       line-height: 1.6;
       color: var(--text);
     }
