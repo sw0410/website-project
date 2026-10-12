@@ -194,22 +194,27 @@
       observer.observe(el);
     });
 
-    // [세트 5 / 평가 3-1] 다크 모드: 이벤트(클릭) → 상태 변경(html의 dark 이름표 토글) → 화면 업데이트(:root.dark 변수 값 교체)
-    // document.documentElement는 html 요소다. 이름표 자체는 색을 바꾸지 못하고, 색은 CSS가 정한다.
-    // 새로고침하면 이름표가 사라진다. 저장은 세트 6(localStorage)에서 한다.
+
+    const STATE = { theme: "light" };
+
+    function render() {
+      document.documentElement.classList.toggle("dark", STATE.theme === "dark");
+    }
     const themeBtn = document.getElementById("theme-btn");
     themeBtn.addEventListener("click", function () {
-      document.documentElement.classList.toggle("dark");
-      if (document.documentElement.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
+      if (STATE.theme === "dark") {
+        STATE.theme = "light";
       } else {
-        localStorage.setItem("theme", "light");
+        STATE.theme = "dark";
       }
+      localStorage.setItem("theme", STATE.theme);
+      render();
     });
 
     if (localStorage.getItem("theme") === "dark") {
-      document.documentElement.classList.add("dark");
+      STATE.theme = "dark";
     }
+    render();
   </script>
 </body>
 </html>
