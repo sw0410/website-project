@@ -177,8 +177,13 @@
     const menuBtn = document.getElementById("menu-btn");
     const links = document.getElementById("menu-links");
     menuBtn.addEventListener("click", function () {
-      
-      links.classList.toggle("open");
+      if (STATE.menuOpen) {
+        STATE.menuOpen = false;
+      }
+      else{
+        STATE.menuOpen = true;
+      }
+      render();
     });
 
     // [세트 4] IntersectionObserver: 요소가 화면에 들어왔는지 지켜보다가 들어오면 visible 이름표를 붙인다.
@@ -200,6 +205,8 @@
 
     function render() {
       document.documentElement.classList.toggle("dark", STATE.theme === "dark");
+      links.classList.toggle("open", STATE.menuOpen);
+      render();
     }
     const themeBtn = document.getElementById("theme-btn");
     themeBtn.addEventListener("click", function () {
