@@ -3,6 +3,7 @@
     // 1. 메뉴(☰): 클릭 → STATE.menuOpen 변경 → render()로 화면에 반영
     const menuBtn = document.getElementById("menu-btn");
     const links = document.getElementById("menu-links");
+    // 메뉴버튼을 누르면 닫혀있던걸 열거나, 열려있는걸 닫는다
     menuBtn.addEventListener("click", function () {
       if (STATE.menuOpen) {
         STATE.menuOpen = false;
@@ -31,6 +32,7 @@
     const STATE = { theme: "light", menuOpen: false };
 
     function render() {
+      //  STATE.theme === "dark" 이면 dark class를 붙이고 false면 뗀다.
       document.documentElement.classList.toggle("dark", STATE.theme === "dark");
       links.classList.toggle("open", STATE.menuOpen);
     }
