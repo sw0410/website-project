@@ -1,5 +1,6 @@
-    /* [세트 5 / 평가 2-3] CSS 변수: 색을 :root에 한 번만 정의하고 var(--이름)으로 가져다 쓴다.
-       바꿀 때 이 한 곳만 고치면 사용하는 모든 곳이 함께 바뀐다. */
+    /* style.css: 페이지의 모양(색, 글꼴, 간격, 배치)을 담당한다. */
+
+    /* 1. 변수: 색과 글꼴을 한 곳에서 관리한다. 바꿀 땐 여기만 고친다. */
     :root {
       --text: #333333;
       --bg: #ffffff;
@@ -7,27 +8,30 @@
       --font-main: sans-serif;
       --font-heading: serif;
     }
-    h1, h2 { font-family: var(--font-heading); }    /* [세트 5 / 평가 3-1] 화면 업데이트: html에 dark 이름표가 붙으면 변수 값이 바뀌고,
-       var(--...)를 쓰는 모든 곳의 색이 따라 바뀐다. 이 블록이 없으면 이름표만 붙고 화면은 그대로다. */
+    /* 제목(h1, h2)만 별도 글꼴 */
+    h1, h2 { font-family: var(--font-heading); }
+    /* 다크 모드: html에 dark 클래스가 붙으면 같은 이름의 변수 값만 교체된다. */
     :root.dark {
       --text: #eeeeee;
       --bg: #111111;
       --bg-alt: #1c1c1c;
     }
-    /*기본 리셋: 여백 제거 및 박스 크기 기준 설정*/
-    /* [주의] CSS 주석은 처음 만나는 별표+슬래시에서 끝난다. 닫지 않으면 아래 규칙이 전부 삼켜진다. (세트 5에서 겪음) */
+
+    /* 2. 기본 리셋: 브라우저 기본 여백을 없앤다. */
     *{
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    /* [세트 5] body에 color를 지정하면 자식 요소가 상속받는다. 단, 자기 color가 있는 요소(footer 등)는 따르지 않는다. */
+
+    /* 3. 본문: 글꼴과 글자색은 변수를 쓴다. 자식 요소가 상속받는다(자기 color가 있는 footer 등은 제외). */
     body {
       font-family: var(--font-main);
       line-height: 1.6;
       color: var(--text);
     }
-    /* 6개 섹션이 눈에 잘 보이도록 색상과 여백 부여 */
+
+    /* 4. 구역: 공통 여백·가운데 정렬·구분선, 배경은 구역별로 번갈아 */
     header, section, footer {
       padding: 60px 20px;
       text-align: center;
@@ -40,8 +44,7 @@
     #contact { background-color: var(--bg-alt); }
     footer { background-color: #333333; color: #ffffff; }
 
-    /* [세트 3] 햄버거 버튼: 기본은 숨기고(display: none) 좁은 화면에서만 보이게 한다.
-       color를 지정하지 않으면 버튼은 body 색을 상속받지 않아서 다크 모드에서 안 보였다. (세트 5) */
+    /* 5. 메뉴: 햄버거 버튼은 기본 숨김(좁은 화면에서만 표시), 링크는 가로 배치(flex), nav는 상단 고정(sticky) */
     #menu-btn {
     display: none;
     background: none;
@@ -51,19 +54,18 @@
     color: var(--text); 
     }
 
-    /* [세트 1 / 평가 3-4] 링크를 가로 한 줄로 늘어놓기: Flexbox는 한 방향 배치에 쓴다. gap은 아이템 사이 간격이다. */
     #menu-links {
       display: flex;
       gap: 20px;
     }
-    /* [세트 1] sticky는 부모 상자 안에서만 따라다닌다. 그래서 nav는 header 안이 아니라 body 바로 아래에 둔다. */
     nav {
       background: var(--bg);
       padding: 16px;
       position: sticky;
       top: 0;
     }
-    /* [세트 4] 스크롤 등장 애니메이션: 처음엔 투명하고 아래에 있다가 visible이 붙으면 서서히 나타난다. */
+
+    /* 6. 스크롤 등장 애니메이션: .reveal(투명) → JS가 visible을 붙이면 서서히 나타난다. */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
@@ -75,7 +77,7 @@
     transform: none;
   }
     
-    /* [세트 2 / 평가 4-2] 반응형: 폭이 600px 이하일 때만 아래 규칙이 덧씌워진다. (지금은 max-width 방식, 나중에 모바일 퍼스트로 바꿀 예정) */
+    /* 7. 반응형(폭 600px 이하): 메뉴를 세로로, ☰ 표시, 여백 축소 */
     @media (max-width: 600px)
     {
       nav {
@@ -96,7 +98,7 @@
       #menu-btn { display: block; }
 
 
-      /* [세트 3] 메뉴는 기본으로 숨기고, JS가 open 이름표를 붙이면 보이게 한다. */
+      /* 메뉴 링크는 숨겨 두고, JS가 open 클래스를 붙이면 보인다. */
       #menu-links {
         display: none;
         flex-direction: column;
@@ -105,6 +107,7 @@
       #menu-links.open { display: flex; }  
       
     }
-    /* [세트 1] 링크(#id)를 누르면 부드럽게 스크롤 */
+
+    /* 8. 링크(#id) 클릭 시 부드럽게 스크롤 */
     html { scroll-behavior: smooth; }
     /* section { min-height: 100vh; } */

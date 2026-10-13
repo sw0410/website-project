@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+<!-- index.html: 페이지의 구조와 내용. 모양은 style.css, 동작은 script.js가 맡는다. -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <!-- [세트 2] viewport: 이 줄이 있어야 모바일에서 폭 기준 @media가 제대로 동작한다 -->
+  <!-- 모바일에서 폭 기준 @media가 동작하려면 필요하다 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 포트폴리오</title>
+  <!-- CSS 연결 -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- [세트 1 / 평가 2-2] 의미 있는 태그: nav는 메뉴, header는 머리말, section은 주제별 구역, footer는 바닥글.
-       태그 이름만 보고 역할을 알 수 있어서 읽기 쉽고 접근성에도 좋다. -->
+  <!-- 메뉴: ☰ 버튼(좁은 화면용), 링크, 다크 모드 버튼. sticky가 동작하도록 header 밖(body 바로 아래)에 둔다. -->
   <nav>
     <button id="menu-btn" aria-label="메뉴 열기">☰</button>
     <div id="menu-links">
@@ -22,41 +23,44 @@
     </div>
   </nav>
 
-  <!-- 1. Hero 섹션: 사이트의 첫인상 -->
+  <!-- 의미 있는 태그: header(머리말), section(주제별 구역), footer(바닥글). class="reveal"은 스크롤 등장 애니메이션 대상. -->
+
+  <!-- Hero: 첫인상 -->
   <header id="hero">
     <h1>안녕하세요, 웹 개발자 포트폴리오입니다</h1>
     <p>매일 성장의 씨앗을 키워가는 개발자입니다.</p>
   </header>
 
-  <!-- 2. About 섹션: 자기소개 (class reveal은 스크롤 등장 애니메이션 대상 표시) -->
+  <!-- About: 자기소개 -->
   <section id="about" class="reveal">
     <h2>About Me</h2>
     <p>배움을 실천하는 개발자입니다.</p>
   </section>
 
-  <!-- 3. Skills 섹션: 기술 스택 -->
+  <!-- Skills: 기술 스택 -->
   <section id="skills" class="reveal">
     <h2>Skills</h2>
     <p>HTML, CSS, JavaScript</p>
   </section>
 
-  <!-- 4. Projects 섹션: 프로젝트 목록 (추후 GitHub 연동 자리) -->
+  <!-- Projects: GitHub 저장소 목록이 들어올 자리 -->
   <section id="projects" class="reveal">
     <h2>Projects</h2>
     <p>깃허브 저장소 목록이 들어올 자리입니다.</p>
   </section>
 
-  <!-- 5. Contact 섹션: 문의 양식 -->
+  <!-- Contact: 문의 양식이 들어올 자리 -->
   <section id="contact" class="reveal">
     <h2>Contact</h2>
     <p>문의사항이 있다면 메시지를 남겨주세요.</p>
   </section>
 
-  <!-- 6. Footer 섹션: 바닥글 -->
+  <!-- Footer: 바닥글 -->
   <footer>
     <p>© 2026 내 이름. All rights reserved.</p>
   </footer>
   
+  <!-- JS 연결: body 끝에 둬야 위의 요소들이 만들어진 뒤에 실행된다(head에 두면 getElementById가 null). -->
   <script src="script.js"></script>
 </body>
 </html>
