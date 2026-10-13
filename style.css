@@ -1,59 +1,110 @@
-/* 1. 모든 요소의 여백 초기화 및 박스 크기 계산 기준 설정 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    /* [세트 5 / 평가 2-3] CSS 변수: 색을 :root에 한 번만 정의하고 var(--이름)으로 가져다 쓴다.
+       바꿀 때 이 한 곳만 고치면 사용하는 모든 곳이 함께 바뀐다. */
+    :root {
+      --text: #333333;
+      --bg: #ffffff;
+      --bg-alt: #f0f4f8;
+      --font-main: sans-serif;
+      --font-heading: serif;
+    }
+    h1, h2 { font-family: var(--font-heading); }    /* [세트 5 / 평가 3-1] 화면 업데이트: html에 dark 이름표가 붙으면 변수 값이 바뀌고,
+       var(--...)를 쓰는 모든 곳의 색이 따라 바뀐다. 이 블록이 없으면 이름표만 붙고 화면은 그대로다. */
+    :root.dark {
+      --text: #eeeeee;
+      --bg: #111111;
+      --bg-alt: #1c1c1c;
+    }
+    /*기본 리셋: 여백 제거 및 박스 크기 기준 설정*/
+    /* [주의] CSS 주석은 처음 만나는 별표+슬래시에서 끝난다. 닫지 않으면 아래 규칙이 전부 삼켜진다. (세트 5에서 겪음) */
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    /* [세트 5] body에 color를 지정하면 자식 요소가 상속받는다. 단, 자기 color가 있는 요소(footer 등)는 따르지 않는다. */
+    body {
+      font-family: var(--font-main);
+      line-height: 1.6;
+      color: var(--text);
+    }
+    /* 6개 섹션이 눈에 잘 보이도록 색상과 여백 부여 */
+    header, section, footer {
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    #hero { background-color: var(--bg-alt); }
+    #about { background-color: var(--bg); }
+    #skills { background-color: var(--bg-alt); }
+    #projects { background-color: var(--bg); }
+    #contact { background-color: var(--bg-alt); }
+    footer { background-color: #333333; color: #ffffff; }
 
-/* 2. 전체 페이지 기본 폰트 및 배경 설정 */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.6;
-  color: #333333;
-  background-color: #f9f9f9;
-}
+    /* [세트 3] 햄버거 버튼: 기본은 숨기고(display: none) 좁은 화면에서만 보이게 한다.
+       color를 지정하지 않으면 버튼은 body 색을 상속받지 않아서 다크 모드에서 안 보였다. (세트 5) */
+    #menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text); 
+    }
 
-/* 3. 상단 헤더 */
-header {
-  background-color: #ffffff;
-  padding: 2.5rem 1rem;
-  text-align: center;
-  border-bottom: 1px solid #e2e8f0;
-}
+    /* [세트 1 / 평가 3-4] 링크를 가로 한 줄로 늘어놓기: Flexbox는 한 방향 배치에 쓴다. gap은 아이템 사이 간격이다. */
+    #menu-links {
+      display: flex;
+      gap: 20px;
+    }
+    /* [세트 1] sticky는 부모 상자 안에서만 따라다닌다. 그래서 nav는 header 안이 아니라 body 바로 아래에 둔다. */
+    nav {
+      background: var(--bg);
+      padding: 16px;
+      position: sticky;
+      top: 0;
+    }
+    /* [세트 4] 스크롤 등장 애니메이션: 처음엔 투명하고 아래에 있다가 visible이 붙으면 서서히 나타난다. */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+  }
 
-header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: #1a202c;
-}
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+    
+    /* [세트 2 / 평가 4-2] 반응형: 폭이 600px 이하일 때만 아래 규칙이 덧씌워진다. (지금은 max-width 방식, 나중에 모바일 퍼스트로 바꿀 예정) */
+    @media (max-width: 600px)
+    {
+      nav {
+        display: flex;
+        gap: 12px;
+        background: var(--bg);
+        padding: 12px;
+        position: sticky;
+        top: 0;
+        flex-direction: column;
+      }
+      header, section, footer{
+        padding: 32px 16px;
+      }
+      header h1 {
+        font-size: 1.4rem; 
+      }
+      #menu-btn { display: block; }
 
-/* 4. 본문 영역 (가운데 정렬의 핵심) */
-main {
-  max-width: 800px;        /* 화면이 아무리 커져도 최대 800px까지만 늘어남 */
-  margin: 2rem auto;       /* 상하 여백 2rem, 좌우 여백 auto(자동 균등 분배로 중앙 정렬) */
-  padding: 0 1rem;         /* 화면이 800px보다 좁아질 때 화면 끝에 글자가 붙지 않도록 방어 */
-}
 
-/* 개별 섹션 카드 스타일 */
-section {
-  background-color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 1.5rem;   /* 섹션 간의 세로 간격 */
-}
-
-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-  color: #2d3748;
-}
-
-/* 5. 하단 푸터 */
-footer {
-  text-align: center;
-  padding: 2rem 1rem;
-  color: #718096;
-  font-size: 0.875rem;
-}
-
+      /* [세트 3] 메뉴는 기본으로 숨기고, JS가 open 이름표를 붙이면 보이게 한다. */
+      #menu-links {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+      }
+      #menu-links.open { display: flex; }  
+      
+    }
+    /* [세트 1] 링크(#id)를 누르면 부드럽게 스크롤 */
+    html { scroll-behavior: smooth; }
+    /* section { min-height: 100vh; } */
