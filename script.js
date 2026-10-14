@@ -59,11 +59,10 @@
 async function loadRepos() {
   console.log("1. 요청 보냄");
   const res = await fetch("https://api.github.com/users/sw0410/repos");
-  console.log("1.5 fetch 다음 줄");
   const repos = await res.json();
-  repos.forEach(function (el) {
-   console.log(el.name)});
   console.log("2. 저장소 개수:", repos.length);
+  repos.forEach(function (el) {
+  console.log(el.name)});
 }
 loadRepos();
 console.log("3. loadRepos 다음 줄");
