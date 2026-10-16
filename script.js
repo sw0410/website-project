@@ -55,6 +55,7 @@
   }
   render()
 
+
 // 6. GitHub 저장소 불러오기: 요청 → 기다림 → 목록 받기
 async function loadRepos() {
   console.log("1. 요청 보냄");
@@ -66,3 +67,19 @@ async function loadRepos() {
 }
 loadRepos();
 console.log("3. loadRepos 다음 줄");
+
+const repos = [
+  { name: "website-project", html_url: "https://github.com/sw0410/website-project" },
+  { name: "study-notes", html_url: "https://github.com/sw0410/study-notes" }
+];
+
+const items = repos.map(function (repo) {
+  const a = document.createElement("a");
+  a.textContent = repo.name;
+  a.href = repo.html_url;
+  return a;
+});
+
+items.forEach(function (a) {
+  document.getElementById("projects").append(a);
+});
