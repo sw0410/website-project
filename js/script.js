@@ -46,15 +46,13 @@
     } else {
       msg.textContent = "";   // success: 문구 없이 목록만
     }
+    
     const list = document.querySelector("#repo-list");
     list.textContent = "";      // 상자 비우기
     const items = STATE.repos.map(({ name, html_url }) => {
-    const a = document.createElement("a");
-    a.textContent = name;
-    a.href = html_url;
-    const li = document.createElement("li");
-    li.append(a)   // 상자(li).append(넣을 것: 변수 a)
-    return li;     // li를 들고 map에게 돌아감 → items에 쌓임
+      const li = document.createElement("li");
+      li.innerHTML = `<article><h3>${name}</h3><a href="${html_url}">저장소 보기</a></article>`;
+      return li;   // li를 들고 map에게 돌아감 → items에 쌓임
     });
 
     items.forEach(function (li) {
@@ -93,7 +91,7 @@
 async function loadRepos() {
   try {
     const res = await fetch("https://api.github.com/users/sw0410/repos");
-    if (!res.ok) throw new Error("요청 실패: " + res.status);
+    if (!res.ok) throw new Error(`요청 실패: ${res.status}`);
     const repos = await res.json();
     STATE.repos = repos;
     if (repos.length === 0) {
