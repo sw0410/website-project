@@ -51,6 +51,7 @@
     #repo-list li { border: 1px solid #999; padding: 12px; }
     #contact { background-color: var(--bg-alt); }
     footer { background-color: #333333; color: #ffffff; }
+    #email-error { color: #d33; }
 
     /* 5. 메뉴: 햄버거 버튼은 기본 숨김(좁은 화면에서만 표시), 링크는 가로 배치(flex), nav는 상단 고정(sticky) */
     #menu-btn {

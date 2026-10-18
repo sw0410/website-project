@@ -29,7 +29,7 @@
   });
 
   // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(dark, open 클래스)을 만든다.
-  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [] };
+  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "" };
 
   function render() {
     //  STATE.theme === "dark" 이면 dark class를 붙이고 false면 뗀다.
@@ -59,6 +59,12 @@
     items.forEach(function (li) {
       document.getElementById("repo-list").append(li);
     });
+    const emailMsg = document.getElementById("email-error");
+      if (STATE.emailError === "format") {
+        emailMsg.textContent = "이메일 형식 오류 입니다.";
+    } else {
+        emailMsg.textContent = "";
+    }
   }
 
   // 4. 다크 모드: 클릭 → STATE.theme 변경 → localStorage에 저장 → render()
@@ -99,4 +105,16 @@ async function loadRepos() {
 }
 loadRepos();
 
+// 7. 문의 폼: 제출 → 검사 → 오류 문구
+const form = document.getElementById("contact-form");
+form.addEventListener("submit", function (event) {
+  event.preventDefault();          // 기본 동작(새로고침) 막기
+  const emailInput = document.getElementById("email");
+  if (emailInput.value.includes("@")) {
+    STATE.emailError = "";                              // 통과: 오류 없음
+  } else {
+    STATE.emailError = "format";        // 상태 이름: 형식 오류
+  }
+  render();
+});
 
