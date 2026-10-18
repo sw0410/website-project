@@ -29,12 +29,36 @@
   });
 
   // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(dark, open 클래스)을 만든다.
-  const STATE = { theme: "light", menuOpen: false };
+  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [] };
 
   function render() {
     //  STATE.theme === "dark" 이면 dark class를 붙이고 false면 뗀다.
     document.documentElement.classList.toggle("dark", STATE.theme === "dark");
     links.classList.toggle("open", STATE.menuOpen);
+    const msg = document.getElementById("repo-msg");
+    if (STATE.repoStatus === "loading") {
+      msg.textContent = "불러오는 중…";
+    } else if (STATE.repoStatus === "error") {
+      msg.textContent = "저장소를 불러오지 못했어요.";
+    } else if (STATE.repoStatus === "empty") {
+      msg.textContent = "아직 공개 저장소가 없어요.";
+    } else {
+      msg.textContent = "";   // success: 문구 없이 목록만
+    }
+    const list = document.getElementById("repo-list");
+    list.textContent = "";      // 상자 비우기
+    const items = STATE.repos.map(function (repo) {
+    const a = document.createElement("a");
+    a.textContent = repo.name;
+    a.href = repo.html_url;
+    const li = document.createElement("li");
+    li.append(a)   // 상자(li).append(넣을 것: 변수 a)
+    return li;     // li를 들고 map에게 돌아감 → items에 쌓임
+    });
+
+    items.forEach(function (li) {
+      document.getElementById("repo-list").append(li);
+    });
   }
 
   // 4. 다크 모드: 클릭 → STATE.theme 변경 → localStorage에 저장 → render()
@@ -64,22 +88,10 @@ async function loadRepos() {
   console.log("2. 저장소 개수:", repos.length);
   repos.forEach(function (el) {
   console.log(el.name)});
+  STATE.repos = repos;
+  STATE.repoStatus = "success";
+  render();
 }
 loadRepos();
 console.log("3. loadRepos 다음 줄");
 
-const repos = [
-  { name: "website-project", html_url: "https://github.com/sw0410/website-project" },
-  { name: "study-notes", html_url: "https://github.com/sw0410/study-notes" }
-];
-
-const items = repos.map(function (repo) {
-  const a = document.createElement("a");
-  a.textContent = repo.name;
-  a.href = repo.html_url;
-  return a;
-});
-
-items.forEach(function (a) {
-  document.getElementById("projects").append(a);
-});
