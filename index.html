@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>내 포트폴리오</title>
   <!-- CSS 연결 -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- JS 연결: defer는 파일을 미리 받아 두고, HTML을 끝까지 읽은 뒤에 실행한다. -->
+  <script src="js/script.js" defer></script>
 </head>
 <body>
 
@@ -68,8 +70,6 @@
   <footer>
     <p>© 2026 내 이름. All rights reserved.</p>
   </footer>
-  
-  <!-- JS 연결: body 끝에 둬야 위의 요소들이 만들어진 뒤에 실행된다(head에 두면 getElementById가 null). -->
-  <script src="script.js"></script>
+
 </body>
 </html>
