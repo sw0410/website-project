@@ -15,6 +15,7 @@
 
   <!-- 메뉴: ☰ 버튼(좁은 화면용), 링크, 다크 모드 버튼. sticky가 동작하도록 header 밖(body 바로 아래)에 둔다. -->
   <nav>
+    <a href="#hero" class="logo">이승우</a>
     <button id="menu-btn" aria-label="메뉴 열기">☰</button>
     <div id="menu-links">
       <a href="#about">About</a>
@@ -32,18 +33,24 @@
   <header id="hero">
     <h1>안녕하세요, 웹 개발자 포트폴리오입니다</h1>
     <p>매일 성장의 씨앗을 키워가는 개발자입니다.</p>
+    <a href="#projects" class="cta">프로젝트 보기</a>     <!-- 20줄: 누르면 Projects 구역으로 -->
   </header>
 
   <!-- About: 자기소개 -->
   <section id="about" class="reveal">
     <h2>About Me</h2>
+    <img src="images/profile.png" alt="웹 개발자 프로필 사진" width="160" height="160">
     <p>배움을 실천하는 개발자입니다.</p>
   </section>
 
   <!-- Skills: 기술 스택 -->
   <section id="skills" class="reveal">
     <h2>Skills</h2>
-    <p>HTML, CSS, JavaScript</p>
+    <ul class="skill-list">
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
   </section>
 
   <!-- Projects: GitHub 저장소 목록이 들어올 자리 -->
@@ -69,6 +76,7 @@
   <!-- Footer: 바닥글 -->
   <footer>
     <p>© 2026 내 이름. All rights reserved.</p>
+    <a href="https://github.com/sw0410" target="_blank" rel="noopener">GitHub</a>
   </footer>
 
 </body>
