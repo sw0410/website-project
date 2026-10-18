@@ -1,8 +1,8 @@
   // script.js: 페이지의 동작(메뉴, 스크롤 등장, 다크 모드)을 담당한다.
 
   // 1. 메뉴(☰): 클릭 → STATE.menuOpen 변경 → render()로 화면에 반영
-  const menuBtn = document.getElementById("menu-btn");
-  const links = document.getElementById("menu-links");
+  const menuBtn = document.querySelector("#menu-btn");
+  const links = document.querySelector("#menu-links");
   // 메뉴버튼을 누르면 닫혀있던걸 열거나, 열려있는걸 닫는다
   menuBtn.addEventListener("click", function () {
     if (STATE.menuOpen) {
@@ -23,7 +23,8 @@
         entry.target.classList.add("visible");
       }
     });
-  });
+  },{ threshold: 0.2 });
+
   targets.forEach(function (el) {
     observer.observe(el);
   });
@@ -34,8 +35,8 @@
   function render() {
     //  STATE.theme === "dark" 이면 dark class를 붙이고 false면 뗀다.
     document.documentElement.classList.toggle("dark", STATE.theme === "dark");
-    links.classList.toggle("open", STATE.menuOpen);
-    const msg = document.getElementById("repo-msg");
+    links.classList.toggle("active", STATE.menuOpen);
+    const msg = document.querySelector("#repo-msg");
     if (STATE.repoStatus === "loading") {
       msg.textContent = "불러오는 중…";
     } else if (STATE.repoStatus === "error") {
@@ -45,7 +46,7 @@
     } else {
       msg.textContent = "";   // success: 문구 없이 목록만
     }
-    const list = document.getElementById("repo-list");
+    const list = document.querySelector("#repo-list");
     list.textContent = "";      // 상자 비우기
     const items = STATE.repos.map(function (repo) {
     const a = document.createElement("a");
@@ -57,9 +58,9 @@
     });
 
     items.forEach(function (li) {
-      document.getElementById("repo-list").append(li);
+      document.querySelector("#repo-list").append(li);
     });
-    const emailMsg = document.getElementById("email-error");
+    const emailMsg = document.querySelector("#email-error");
     if (STATE.emailError === "format") {
       emailMsg.textContent = "이메일 형식 오류 입니다.";
     } else if (STATE.emailError === "empty") {
@@ -70,7 +71,7 @@
   }
 
   // 4. 다크 모드: 클릭 → STATE.theme 변경 → localStorage에 저장 → render()
-  const themeBtn = document.getElementById("theme-btn");
+  const themeBtn = document.querySelector("#theme-btn");
   themeBtn.addEventListener("click", function () {
     if (STATE.theme === "dark") {
       STATE.theme = "light";
@@ -108,10 +109,10 @@ async function loadRepos() {
 loadRepos();
 
 // 7. 문의 폼: 제출 → 검사 → 오류 문구
-const form = document.getElementById("contact-form");
+const form = document.querySelector("#contact-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
-  const emailInput = document.getElementById("email");
+  const emailInput = document.querySelector("#email");
   if (emailInput.value === "") {
     STATE.emailError = "empty";
   } else if (emailInput.value.includes("@")) {
