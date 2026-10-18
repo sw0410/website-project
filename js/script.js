@@ -25,7 +25,7 @@
     });
   },{ threshold: 0.2 });
 
-  targets.forEach(function (el) {
+  targets.forEach((el) => {
     observer.observe(el);
   });
 
@@ -33,8 +33,8 @@
   const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "" };
 
   function render() {
-    //  STATE.theme === "dark" 이면 dark class를 붙이고 false면 뗀다.
-    document.documentElement.classList.toggle("dark", STATE.theme === "dark");
+// STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
+    document.documentElement.setAttribute("data-theme", STATE.theme);
     links.classList.toggle("active", STATE.menuOpen);
     const msg = document.querySelector("#repo-msg");
     if (STATE.repoStatus === "loading") {
@@ -48,10 +48,10 @@
     }
     const list = document.querySelector("#repo-list");
     list.textContent = "";      // 상자 비우기
-    const items = STATE.repos.map(function (repo) {
+    const items = STATE.repos.map(({ name, html_url }) => {
     const a = document.createElement("a");
-    a.textContent = repo.name;
-    a.href = repo.html_url;
+    a.textContent = name;
+    a.href = html_url;
     const li = document.createElement("li");
     li.append(a)   // 상자(li).append(넣을 것: 변수 a)
     return li;     // li를 들고 map에게 돌아감 → items에 쌓임
