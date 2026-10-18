@@ -82,16 +82,21 @@
 
 // 6. GitHub 저장소 불러오기: 요청 → 기다림 → 목록 받기
 async function loadRepos() {
-  console.log("1. 요청 보냄");
-  const res = await fetch("https://api.github.com/users/sw0410/repos");
-  const repos = await res.json();
-  console.log("2. 저장소 개수:", repos.length);
-  repos.forEach(function (el) {
-  console.log(el.name)});
-  STATE.repos = repos;
-  STATE.repoStatus = "success";
+  try {
+    const res = await fetch("https://api.github.com/users/sw0410/repos");
+    if (!res.ok) throw new Error("요청 실패: " + res.status);
+    const repos = await res.json();
+    STATE.repos = repos;
+    if (repos.length === 0) {
+      STATE.repoStatus = "empty";
+    } else {
+      STATE.repoStatus = "success";
+    }
+  } catch (error) {
+    STATE.repoStatus = "error";
+  }
   render();
 }
 loadRepos();
-console.log("3. loadRepos 다음 줄");
+
 

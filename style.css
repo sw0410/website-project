@@ -40,7 +40,15 @@
     #hero { background-color: var(--bg-alt); }
     #about { background-color: var(--bg); }
     #skills { background-color: var(--bg-alt); }
-    #projects { background-color: var(--bg); }
+    #projects { background-color: var(--bg);}
+    #repo-list {
+      display: grid;
+      /* 카드 폭은 최소 200px이고, 들어갈 수 있는 만큼 열을 만든 뒤 남는 폭은 똑같이 나눠 가진다 */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      gap: 16px;
+      list-style: none; 
+    }
+    #repo-list li { border: 1px solid #999; padding: 12px; }
     #contact { background-color: var(--bg-alt); }
     footer { background-color: #333333; color: #ffffff; }
 
