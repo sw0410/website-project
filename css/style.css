@@ -1,122 +1,106 @@
-    /* style.css: 페이지의 모양(색, 글꼴, 간격, 배치)을 담당한다. */
+/* style.css: 페이지의 모양(색, 글꼴, 간격, 배치)을 담당한다.
+   모바일 퍼스트: 기본 규칙은 폰 화면 기준이고, 넓은 화면에서 달라지는 것만 7번 @media (min-width)에서 더한다. */
 
-    /* 1. 변수: 색과 글꼴을 한 곳에서 관리한다. 바꿀 땐 여기만 고친다. */
-    :root {
-      --text: #333333;
-      --bg: #ffffff;
-      --bg-alt: #f0f4f8;
-      --font-main: sans-serif;
-      --font-heading: serif;
-    }
-    /* 제목(h1, h2)만 별도 글꼴 */
-    h1, h2 { font-family: var(--font-heading); }
-    /* 다크 모드: html에 dark 클래스가 붙으면 같은 이름의 변수 값만 교체된다. */
-    :root.dark {
-      --text: #eeeeee;
-      --bg: #111111;
-      --bg-alt: #1c1c1c;
-    }
+/* 1. 변수: 색과 글꼴을 한 곳에서 관리한다. 바꿀 땐 여기만 고친다. */
+:root {
+  --text: #333333;
+  --bg: #ffffff;
+  --bg-alt: #f0f4f8;
+  --font-main: sans-serif;
+  --font-heading: serif;
+}
+/* 제목(h1, h2)만 별도 글꼴 */
+h1, h2 { font-family: var(--font-heading); }
 
-    /* 2. 기본 리셋: 브라우저 기본 여백을 없앤다. */
-    *{
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* 다크 모드: html에 dark 클래스가 붙으면 같은 이름의 변수 값만 교체된다. */
+:root.dark {
+  --text: #eeeeee;
+  --bg: #111111;
+  --bg-alt: #1c1c1c;
+}
 
-    /* 3. 본문: 글꼴과 글자색은 변수를 쓴다. 자식 요소가 상속받는다(자기 color가 있는 footer 등은 제외). */
-    body {
-      font-family: var(--font-main);
-      line-height: 1.6;
-      color: var(--text);
-    }
+/* 2. 기본 리셋: 브라우저 기본 여백을 없앤다. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    /* 4. 구역: 공통 여백·가운데 정렬·구분선, 배경은 구역별로 번갈아 */
-    header, section, footer {
-      padding: 60px 20px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-    #hero { background-color: var(--bg-alt); }
-    #about { background-color: var(--bg); }
-    #skills { background-color: var(--bg-alt); }
-    #projects { background-color: var(--bg);}
-    #repo-list {
-      display: grid;
-      /* 카드 폭은 최소 200px이고, 들어갈 수 있는 만큼 열을 만든 뒤 남는 폭은 똑같이 나눠 가진다 */
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-      gap: 16px;
-      list-style: none; 
-    }
-    #repo-list li { border: 1px solid #999; padding: 12px; }
-    #contact { background-color: var(--bg-alt); }
-    footer { background-color: #333333; color: #ffffff; }
-    #email-error { color: #d33; }
+/* 3. 본문: 글꼴과 글자색은 변수를 쓴다. 자식 요소가 상속받는다(자기 color가 있는 footer 등은 제외). */
+body {
+  font-family: var(--font-main);
+  line-height: 1.6;
+  color: var(--text);
+}
 
-    /* 5. 메뉴: 햄버거 버튼은 기본 숨김(좁은 화면에서만 표시), 링크는 가로 배치(flex), nav는 상단 고정(sticky) */
-    #menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text); 
-    }
+/* 4. 구역 (기본 = 폰): 좁은 여백·가운데 정렬·구분선, 배경은 구역별로 번갈아 */
+header, section, footer {
+  padding: 32px 16px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+header h1 { font-size: 1.4rem; }
+#hero { background-color: var(--bg-alt); }
+#about { background-color: var(--bg); }
+#skills { background-color: var(--bg-alt); }
+#projects { background-color: var(--bg); }
+#repo-list {
+  display: grid;
+  /* 카드 폭은 최소 200px이고, 들어갈 수 있는 만큼 열을 만든 뒤 남는 폭은 똑같이 나눠 가진다 */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  list-style: none;
+}
+#repo-list li { border: 1px solid #999; padding: 12px; }
+#contact { background-color: var(--bg-alt); }
+footer { background-color: #333333; color: #ffffff; }
+#email-error { color: #d33; }
 
-    #menu-links {
-      display: flex;
-      gap: 20px;
-    }
-    nav {
-      background: var(--bg);
-      padding: 16px;
-      position: sticky;
-      top: 0;
-    }
+/* 5. 메뉴 (기본 = 폰): nav는 세로 flex로 상단 고정(sticky). ☰는 보이고,
+      링크는 숨겨 두었다가 JS가 active 클래스를 붙이면 세로로 보인다. */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg);
+  padding: 12px;
+  position: sticky;
+  top: 0;
+}
+#menu-btn {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text);
+}
+#menu-links {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+#menu-links.active { display: flex; }
 
-    /* 6. 스크롤 등장 애니메이션: .reveal(투명) → JS가 visible을 붙이면 서서히 나타난다. */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s, transform 0.6s;
-  }
+/* 6. 스크롤 등장 애니메이션: .reveal(투명) → JS가 visible을 붙이면 서서히 나타난다. */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
 
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
-    
-    /* 7. 반응형(폭 600px 이하): 메뉴를 세로로, ☰ 표시, 여백 축소 */
-    @media (max-width: 600px)
-    {
-      nav {
-        display: flex;
-        gap: 12px;
-        background: var(--bg);
-        padding: 12px;
-        position: sticky;
-        top: 0;
-        flex-direction: column;
-      }
-      header, section, footer{
-        padding: 32px 16px;
-      }
-      header h1 {
-        font-size: 1.4rem; 
-      }
-      #menu-btn { display: block; }
+/* 7. 넓은 화면(768px 이상)에서 덮어쓰기: 메뉴를 가로로, ☰ 숨김, 여백과 제목 키우기 */
+@media (min-width: 768px) {
+  nav { flex-direction: row; padding: 16px; }
+  #menu-btn { display: none; }
+  #menu-links { display: flex; flex-direction: row; gap: 20px; }
+  header, section, footer { padding: 60px 20px; }
+  header h1 { font-size: 2rem; }
+}
 
-
-      /* 메뉴 링크는 숨겨 두고, JS가 open 클래스를 붙이면 보인다. */
-      #menu-links {
-        display: none;
-        flex-direction: column;
-        gap: 12px;
-      }
-      #menu-links.active { display: flex; }  
-      
-    }
-
-    /* 8. 링크(#id) 클릭 시 부드럽게 스크롤 */
-    html { scroll-behavior: smooth; }
-    /* section { min-height: 100vh; } */
+/* 8. 링크(#id) 클릭 시 부드럽게 스크롤 */
+html { scroll-behavior: smooth; }
