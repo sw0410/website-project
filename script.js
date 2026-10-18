@@ -60,10 +60,12 @@
       document.getElementById("repo-list").append(li);
     });
     const emailMsg = document.getElementById("email-error");
-      if (STATE.emailError === "format") {
-        emailMsg.textContent = "이메일 형식 오류 입니다.";
+    if (STATE.emailError === "format") {
+      emailMsg.textContent = "이메일 형식 오류 입니다.";
+    } else if (STATE.emailError === "empty") {
+      emailMsg.textContent = "이메일을 입력해 주세요.";
     } else {
-        emailMsg.textContent = "";
+      emailMsg.textContent = "";
     }
   }
 
@@ -108,12 +110,14 @@ loadRepos();
 // 7. 문의 폼: 제출 → 검사 → 오류 문구
 const form = document.getElementById("contact-form");
 form.addEventListener("submit", function (event) {
-  event.preventDefault();          // 기본 동작(새로고침) 막기
+  event.preventDefault();
   const emailInput = document.getElementById("email");
-  if (emailInput.value.includes("@")) {
-    STATE.emailError = "";                              // 통과: 오류 없음
+  if (emailInput.value === "") {
+    STATE.emailError = "empty";
+  } else if (emailInput.value.includes("@")) {
+    STATE.emailError = "";
   } else {
-    STATE.emailError = "format";        // 상태 이름: 형식 오류
+    STATE.emailError = "format";
   }
   render();
 });
