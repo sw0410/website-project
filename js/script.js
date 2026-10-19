@@ -30,14 +30,17 @@
   });
 
   // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(dark, open 클래스)을 만든다.
-  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "" };
-
+  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "" };
   function render() {
 // STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
     document.documentElement.setAttribute("data-theme", STATE.theme);
     links.classList.toggle("active", STATE.menuOpen);
     const retryBtn = document.querySelector("#retry-btn");
     retryBtn.classList.toggle("show", STATE.repoStatus === "error");
+    const topBtn = document.querySelector("#top-btn");
+    topBtn.classList.toggle("show", STATE.scrollY > 300);
+    const nav = document.querySelector("nav");
+    nav.classList.toggle("scrolled", STATE.scrollY > 60);
     const msg = document.querySelector("#repo-msg");
     if (STATE.repoStatus === "loading") {
       msg.textContent = "불러오는 중…";
@@ -67,6 +70,18 @@
       emailMsg.textContent = "이메일을 입력해 주세요.";
     } else {
       emailMsg.textContent = "";
+    }
+    const nameMsg = document.querySelector("#name-error");
+    if (STATE.nameError === "empty") {
+      nameMsg.textContent = "이름을 입력해 주세요.";
+    } else {
+      nameMsg.textContent = "";
+    }
+    const messageMsg = document.querySelector("#message-error");
+    if (STATE.messageError === "empty") {
+      messageMsg.textContent = "메시지를 입력해 주세요.";
+    } else {
+      messageMsg.textContent = "";
     }
   }
 
@@ -119,6 +134,18 @@ retryBtn.addEventListener("click", () => {
 const form = document.querySelector("#contact-form");
 form.addEventListener("submit", function (event) {
   event.preventDefault();
+  const nameInput = document.querySelector("#name");
+  if (nameInput.value === "") {
+    STATE.nameError = "empty";
+  } else {
+    STATE.nameError = "";
+  }
+  const messageInput = document.querySelector("#message");
+  if (messageInput.value === "") {
+    STATE.messageError = "empty";
+  } else {
+    STATE.messageError = "";
+  }
   const emailInput = document.querySelector("#email");
   if (emailInput.value === "") {
     STATE.emailError = "empty";
@@ -130,3 +157,13 @@ form.addEventListener("submit", function (event) {
   render();
 });
 
+// 8. 스크롤: 내린 위치를 STATE에 저장 → render()
+window.addEventListener("scroll", () => {
+  STATE.scrollY = window.scrollY;
+  render();
+});
+
+// 탑 버튼: 클릭하면 맨 위로 부드럽게
+document.querySelector("#top-btn").addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
