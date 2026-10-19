@@ -30,7 +30,7 @@
   });
 
   // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(dark, open 클래스)을 만든다.
-  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "" };
+  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "", formSuccess: false };
   function render() {
 // STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
     document.documentElement.setAttribute("data-theme", STATE.theme);
@@ -82,6 +82,12 @@
       messageMsg.textContent = "메시지를 입력해 주세요.";
     } else {
       messageMsg.textContent = "";
+    }
+    const successMsg = document.querySelector("#form-success");
+    if (STATE.formSuccess) {
+      successMsg.textContent = "메시지가 전송되었습니다.";
+    } else {
+      successMsg.textContent = "";
     }
   }
 
@@ -154,6 +160,12 @@ form.addEventListener("submit", function (event) {
   } else {
     STATE.emailError = "format";
   }
+  if (STATE.nameError === "" && STATE.emailError === "" && STATE.messageError === "") {
+    STATE.formSuccess = true;
+    form.reset();   // 칸 비우기
+  } else {
+    STATE.formSuccess = false;
+  }
   render();
 });
 
@@ -166,4 +178,21 @@ window.addEventListener("scroll", () => {
 // 탑 버튼: 클릭하면 맨 위로 부드럽게
 document.querySelector("#top-btn").addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// 9. 입력하면 그 칸의 오류를 지운다: input → STATE → render()
+document.querySelector("#name").addEventListener("input", () => {
+  STATE.nameError = "";
+  STATE.formSuccess = false;
+  render();
+});
+document.querySelector("#email").addEventListener("input", () => {
+  STATE.emailError = "";
+  STATE.formSuccess = false;
+  render();
+});
+document.querySelector("#message").addEventListener("input", () => {
+  STATE.messageError = "";
+  STATE.formSuccess = false;
+  render();
 });
