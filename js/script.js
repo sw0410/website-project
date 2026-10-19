@@ -1,4 +1,4 @@
-  // script.js: 페이지의 동작(메뉴, 스크롤 등장, 다크 모드)을 담당한다.
+// script.js: 페이지의 동작(메뉴, 스크롤 등장, 다크 모드, 저장소 목록, 문의 폼)을 담당한다.
 
   // 1. 메뉴(☰): 클릭 → STATE.menuOpen 변경 → render()로 화면에 반영
   const menuBtn = document.querySelector("#menu-btn");
@@ -29,7 +29,7 @@
     observer.observe(el);
   });
 
-  // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(dark, open 클래스)을 만든다.
+// 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(data-theme 속성, active·show 클래스, 목록, 문구)을 만든다.
   const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "", formSuccess: false };
   function render() {
 // STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
@@ -63,6 +63,7 @@
     items.forEach(function (li) {
       document.querySelector("#repo-list").append(li);
     });
+    
     const emailMsg = document.querySelector("#email-error");
     if (STATE.emailError === "format") {
       emailMsg.textContent = "이메일 형식 오류 입니다.";
