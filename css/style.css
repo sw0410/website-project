@@ -8,6 +8,8 @@
   --bg-alt: #f0f4f8;
   --font-main: sans-serif;
   --font-heading: serif;
+  --accent: #2563eb;  /* 강조색: CTA·버튼 */
+  --accent-dark: #1d4ed8;  /* 강조색 hover */
   --space-s: 12px;    /* 작은 간격: 메뉴 항목 사이 */
   --space-m: 16px;    /* 중간 간격: 카드 사이, 폰 좌우 여백 */
   --space-l: 32px;    /* 큰 간격: 폰 구역 위아래 여백 */
@@ -55,10 +57,94 @@ header h1 { font-size: 1.4rem; }
   gap: var(--space-m);
   list-style: none;
 }
-#repo-list li { border: 1px solid #999; padding: 12px; }
+#repo-list li {
+  border: 1px solid #999;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);      /* 기본 그림자 */
+  transition: transform 0.2s, box-shadow 0.2s;   /* 0.2초 동안 부드럽게 변한다 */
+}
+#repo-list li:hover {
+  transform: translateY(-4px);                   /* 4px 위로 */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);    /* 그림자 진하게 */
+}
 #contact { background-color: var(--bg-alt); }
 footer { background-color: #333333; color: #ffffff; }
-#email-error { color: #d33; }
+footer a { color: #9cd3ff; }                     /* 어두운 배경에서 잘 보이는 링크 색 */
+.error { color: #d33; }                          /* 폼 칸별 오류 문구 */
+#form-success { color: #2a8a3e; }                /* 폼 성공 문구 */
+
+/* 4-1. Skills: 불릿 대신 가로로 늘어선 태그 */
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-s);
+  margin-top: var(--space-m);
+}
+.skill-list li {
+  padding: 6px 16px;
+  border: 1px solid #999;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+/* 4-2. 버튼: CTA 링크와 폼·재시도 버튼은 같은 모양, hover 때 색이 부드럽게 바뀐다 */
+.cta, #contact-form button, #retry-btn {
+  display: inline-block;
+  margin-top: var(--space-m);
+  padding: 10px 24px;
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.cta:hover, #contact-form button:hover, #retry-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-2px);
+}
+#retry-btn { display: none; }                    /* 기본은 숨김, JS가 show를 붙이면 보인다 */
+#retry-btn.show { display: inline-block; }
+
+/* 4-3. 폼: 칸을 세로로 쌓고 폭을 제한한다 */
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 400px;
+  margin: var(--space-m) auto 0;
+  text-align: left;
+}
+#contact-form input, #contact-form textarea {
+  padding: 8px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font: inherit;
+}
+#contact-form button { align-self: center; }
+
+/* 4-4. 맨 위로 버튼: 오른쪽 아래 고정, 기본은 숨김, JS가 show를 붙이면 보인다 */
+#top-btn {
+  display: none;
+  position: fixed;
+  right: var(--space-m);
+  bottom: var(--space-m);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+#top-btn.show { display: block; }
 
 /* 5. 메뉴 (기본 = 폰): nav는 세로 flex로 상단 고정(sticky). ☰는 보이고,
       링크는 숨겨 두었다가 JS가 active 클래스를 붙이면 세로로 보인다. */
@@ -70,6 +156,13 @@ nav {
   padding: var(--space-s);
   position: sticky;
   top: 0;
+  z-index: 10;                                   /* 카드보다 위에 보이게 */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+/* 60px 넘게 내리면 JS가 scrolled를 붙여 배경과 그림자가 바뀐다 */
+nav.scrolled {
+  background: var(--bg-alt);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 #menu-btn {
   display: block;

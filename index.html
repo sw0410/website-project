@@ -33,7 +33,7 @@
   <header id="hero">
     <h1>안녕하세요, 웹 개발자 포트폴리오입니다</h1>
     <p>매일 성장의 씨앗을 키워가는 개발자입니다.</p>
-    <a href="#projects" class="cta">프로젝트 보기</a>     <!-- 20줄: 누르면 Projects 구역으로 -->
+    <a href="#projects" class="cta">프로젝트 보기</a>  <!-- 누르면 Projects 구역으로 부드럽게 스크롤 -->
   </header>
 
   <!-- About: 자기소개 -->
@@ -57,7 +57,8 @@
   <section id="projects" class="reveal">
     <h2>Projects</h2>
     <p id="repo-msg">깃허브 저장소 목록이 들어올 자리입니다.</p>
-    <ul id="repo-list"></ul>  
+    <button id="retry-btn" type="button">다시 시도</button>
+    <ul id="repo-list"></ul>
   </section>
 
   <!-- Contact: 문의 양식이 들어올 자리 -->
@@ -65,19 +66,32 @@
     <h2>Contact</h2>
     <p>문의사항이 있다면 메시지를 남겨주세요.</p>
     <form id="contact-form">
+      <label for="name">이름</label>
+      <input id="name" type="text">
+      <p id="name-error" class="error"></p>
+
       <label for="email">이메일</label>
       <input id="email" type="text">
-      <p id="email-error"></p>
+      <p id="email-error" class="error"></p>
+
+      <label for="message">메시지</label>
+      <textarea id="message" rows="4"></textarea>
+      <p id="message-error" class="error"></p>
+
       <button type="submit">보내기</button>
+      <p id="form-success"></p>
     </form>
   </section>
 </main>
 
   <!-- Footer: 바닥글 -->
   <footer>
-    <p>© 2026 내 이름. All rights reserved.</p>
+    <p>© 2026 이승우. All rights reserved.</p>
     <a href="https://github.com/sw0410" target="_blank" rel="noopener">GitHub</a>
   </footer>
+
+  <!-- 맨 위로 버튼: 300px 넘게 내리면 보인다 -->
+  <button id="top-btn" type="button" aria-label="맨 위로">↑</button>
 
 </body>
 </html>
