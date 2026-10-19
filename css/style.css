@@ -37,6 +37,7 @@ body {
   font-family: var(--font-main);
   line-height: 1.6;
   color: var(--text);
+  background-color: var(--bg);
 }
 
 /* 4. 구역 (기본 = 폰): 좁은 여백·가운데 정렬·구분선, 배경은 구역별로 번갈아 */
@@ -207,3 +208,15 @@ nav.scrolled {
 
 /* 8. 링크(#id) 클릭 시 부드럽게 스크롤 */
 html { scroll-behavior: smooth; }
+/* 9. 메뉴 링크와 다크 모드 버튼: 다크 모드에서도 잘 보이게 */
+nav a { color: var(--text); text-decoration: none; }
+nav a:hover { color: var(--accent); }
+.logo { font-weight: bold; }
+#menu-links { align-items: center; }
+#theme-btn {
+  background: none;
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
