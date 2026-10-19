@@ -51,7 +51,8 @@
     } else {
       msg.textContent = "";   // success: 문구 없이 목록만
     }
-    
+
+    // 카드 그리기: 상자 비우기 → map으로 저장소마다 카드(li) 만들기 → forEach로 붙이기
     const list = document.querySelector("#repo-list");
     list.textContent = "";      // 상자 비우기
     const items = STATE.repos.map(({ name, html_url }) => {
@@ -59,7 +60,6 @@
       li.innerHTML = `<article><h3>${name}</h3><a href="${html_url}">저장소 보기</a></article>`;
       return li;   // li를 들고 map에게 돌아감 → items에 쌓임
     });
-
     items.forEach(function (li) {
       document.querySelector("#repo-list").append(li);
     });
@@ -156,7 +156,7 @@ form.addEventListener("submit", function (event) {
   const emailInput = document.querySelector("#email");
   if (emailInput.value === "") {
     STATE.emailError = "empty";
-  } else if (emailInput.value.includes("@")) {
+  } else if (emailInput.value.includes("@")) { //이메일 검증 패턴을 추가해보기. (정규식 이메일 필터링)
     STATE.emailError = "";
   } else {
     STATE.emailError = "format";
