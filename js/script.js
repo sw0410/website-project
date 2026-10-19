@@ -36,13 +36,15 @@
 // STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
     document.documentElement.setAttribute("data-theme", STATE.theme);
     links.classList.toggle("active", STATE.menuOpen);
+    const retryBtn = document.querySelector("#retry-btn");
+    retryBtn.classList.toggle("show", STATE.repoStatus === "error");
     const msg = document.querySelector("#repo-msg");
     if (STATE.repoStatus === "loading") {
       msg.textContent = "불러오는 중…";
     } else if (STATE.repoStatus === "error") {
-      msg.textContent = "저장소를 불러오지 못했어요.";
+      msg.textContent = "프로젝트를 불러올 수 없습니다";
     } else if (STATE.repoStatus === "empty") {
-      msg.textContent = "아직 공개 저장소가 없어요.";
+      msg.textContent = "표시할 프로젝트가 없습니다";
     } else {
       msg.textContent = "";   // success: 문구 없이 목록만
     }
@@ -105,6 +107,13 @@ async function loadRepos() {
   render();
 }
 loadRepos();
+// 재시도: 클릭 → 상태를 로딩으로 → 화면 반영 → 다시 요청
+const retryBtn = document.querySelector("#retry-btn");
+retryBtn.addEventListener("click", () => {
+  STATE.repoStatus = "loading";
+  render();
+  loadRepos();
+});
 
 // 7. 문의 폼: 제출 → 검사 → 오류 문구
 const form = document.querySelector("#contact-form");
