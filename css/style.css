@@ -3,9 +3,9 @@
 
 /* 1. 변수: 색과 글꼴을 한 곳에서 관리한다. 바꿀 땐 여기만 고친다. */
 :root {
-  --text: #333333;
-  --bg: #ffffff;
-  --bg-alt: #f0f4f8;
+  --text: #2e3b2f;
+  --bg: #fbf9ec;
+  --bg-alt: #eef4df;
   --font-main: sans-serif;
   --font-heading: serif;
   --accent: #2f6b3a;  /* 강조색: CTA·버튼 */
@@ -20,9 +20,9 @@ h1, h2 { font-family: var(--font-heading); }
 
 /* 다크 모드: html의 data-theme 속성이 "dark"이면 같은 이름의 변수 값만 교체된다. */
 :root[data-theme="dark"] {
-  --text: #eeeeee;
-  --bg: #111111;
-  --bg-alt: #1c1c1c;
+  --text: #f1e9c9;
+  --bg: #13201a;
+  --bg-alt: #1b2b21;
 }
 
 /* 2. 기본 리셋: 브라우저 기본 여백을 없앤다. */
