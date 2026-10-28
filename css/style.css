@@ -208,6 +208,7 @@ nav.scrolled {
 
 /* 8. 링크(#id) 클릭 시 부드럽게 스크롤 */
 html { scroll-behavior: smooth; }
+
 /* 9. 메뉴 링크와 다크 모드 버튼: 다크 모드에서도 잘 보이게 */
 nav a { color: var(--text); text-decoration: none; }
 nav a:hover { color: var(--accent); }
@@ -220,3 +221,16 @@ nav a:hover { color: var(--accent); }
   padding: 4px 10px;
   cursor: pointer;
 }
+
+/* 10. 카드 전체가 링크: 여백을 a로 옮겨 카드 어디를 눌러도 이동 */
+#repo-list li { padding: 0; }
+#repo-list a { display: block; padding: 12px; color: inherit; text-decoration: none; }
+
+/* 12. 프로젝트 필터 버튼: 눌린 버튼은 초록으로 채움 */
+#filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-s); margin-bottom: var(--space-m); }
+#filter-bar button { padding: 6px 16px; border: 1px solid #999; border-radius: 999px; background: var(--bg); color: var(--text); font: inherit; cursor: pointer; transition: background-color 0.2s; }
+#filter-bar button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* 13. 블로그 글 링크: 평소엔 글자색, 방문한 글은 주황 (라이트·다크 모두 잘 보이게) */
+#post-list a { color: var(--text); }
+#post-list a:visited { color: #e0913a; }

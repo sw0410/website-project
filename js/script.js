@@ -30,7 +30,7 @@
   });
 
 // 3. 상태와 화면: STATE가 유일한 기준이고, render()가 STATE를 보고 화면(data-theme 속성, active·show 클래스, 목록, 문구)을 만든다.
-  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "", formSuccess: false, posts: []};
+  const STATE = { theme: "light", menuOpen: false, repoStatus: "loading", repos: [], emailError: "", scrollY: 0, nameError: "", messageError: "", formSuccess: false, posts: [], skill: ""};
   function render() {
 // STATE.theme 값("light" 또는 "dark")을 html의 data-theme 속성에 그대로 적는다.
     document.documentElement.setAttribute("data-theme", STATE.theme);
@@ -52,12 +52,25 @@
       msg.textContent = "";   // success: 문구 없이 목록만
     }
 
-    // 카드 그리기: 상자 비우기 → map으로 저장소마다 카드(li) 만들기 → forEach로 붙이기
+    // 카드 그리기: 상자 비우기 → 필터로 고르기 → map으로 카드(li) 만들기 → forEach로 붙이기
     const list = document.querySelector("#repo-list");
     list.textContent = "";      // 상자 비우기
-    const items = STATE.repos.map(({ name, html_url }) => {
+    const shown = STATE.repos.filter((repo) => STATE.skill === "" || repo.language === STATE.skill);
+
+    // 필터 버튼: 저장소들의 언어를 겹치지 않게 모아서 All + 언어 버튼으로 그린다
+    const languages = STATE.repos
+      .map((repo) => repo.language)
+      .filter((lang, i, arr) => lang && arr.indexOf(lang) === i);
+    const filterBar = document.querySelector("#filter-bar");
+    filterBar.innerHTML = ["", ...languages]
+      .map((lang) => `<button type="button" data-skill="${lang}">${lang || "All"}</button>`)
+      .join("");
+    filterBar.querySelectorAll("button").forEach((btn) => btn.classList.toggle("active", btn.dataset.skill === STATE.skill));
+    if (STATE.skill !== "" && shown.length === 0) msg.textContent = `${STATE.skill} 프로젝트가 아직 없습니다`;
+    if (STATE.repoStatus === "success" && shown.length > 0) msg.textContent = `${shown.length}개의 저장소를 표시하고 있습니다`;
+    const items = shown.map(({ name, html_url, language }) => {
       const li = document.createElement("li");
-      li.innerHTML = `<article><h3>${name}</h3><a href="${html_url}">저장소 보기</a></article>`;
+      li.innerHTML = `<a href="${html_url}"><article><h3>${name}</h3></article></a>`;
       return li;   // li를 들고 map에게 돌아감 → items에 쌓임
     });
     items.forEach(function (li) {
@@ -219,5 +232,13 @@ document.querySelector("#email").addEventListener("input", () => {
 document.querySelector("#message").addEventListener("input", () => {
   STATE.messageError = "";
   STATE.formSuccess = false;
+  render();
+});
+
+// 10. 프로젝트 필터: 버튼 클릭 → STATE.skill 바꾸기 → render()
+document.querySelector("#filter-bar").addEventListener("click", (event) => {
+  const btn = event.target.closest("button");   // 누른 곳에서 가장 가까운 버튼
+  if (!btn) return;                              // 버튼 사이 빈 곳을 누르면 무시
+  STATE.skill = btn.dataset.skill;                         // 누른 버튼의 이름표 값
   render();
 });
