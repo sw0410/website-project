@@ -8,8 +8,8 @@
   --bg-alt: #f0f4f8;
   --font-main: sans-serif;
   --font-heading: serif;
-  --accent: #2563eb;  /* 강조색: CTA·버튼 */
-  --accent-dark: #1d4ed8;  /* 강조색 hover */
+  --accent: #2f6b3a;  /* 강조색: CTA·버튼 */
+  --accent-dark: #1f4d29;  /* 강조색 hover */
   --space-s: 12px;    /* 작은 간격: 메뉴 항목 사이 */
   --space-m: 16px;    /* 중간 간격: 카드 사이, 폰 좌우 여백 */
   --space-l: 32px;    /* 큰 간격: 폰 구역 위아래 여백 */
