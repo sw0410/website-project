@@ -234,3 +234,6 @@ nav a:hover { color: var(--accent); }
 /* 13. 블로그 글 링크: 평소엔 글자색, 방문한 글은 주황 (라이트·다크 모두 잘 보이게) */
 #post-list a { color: var(--text); }
 #post-list a:visited { color: #e0913a; }
+
+/* 14. 블로그 목록: 불릿을 제목 바로 옆에 */
+#post-list { list-style-position: inside; }
