@@ -70,8 +70,8 @@
     if (STATE.repoStatus === "success" && shown.length > 0) msg.textContent = `${shown.length}개의 저장소를 표시하고 있습니다`;
     const items = shown.map(({ name, html_url, language }) => {
       const li = document.createElement("li");
-      li.innerHTML = `<a href="${html_url}"><article><h3>${name}</h3></article></a>`;
-      return li;   // li를 들고 map에게 돌아감 → items에 쌓임
+      li.innerHTML = `<a href="${html_url}"><article><h3>${name}</h3><p>${language || "기타"}</p></article></a>`;
+      return li;   // li를 들고 map에게 돌아감 → items에 쌓임     
     });
     items.forEach(function (li) {
       document.querySelector("#repo-list").append(li);
@@ -83,8 +83,7 @@
     STATE.posts.forEach(({ name, html_url }) => {
       const title = name.replace(".md", "").replaceAll("-", " ");
       const li = document.createElement("li");
-      li.innerHTML = `<a href="${html_url}">${title}</a>`;
-      postList.append(li);
+      li.innerHTML = `<a href="posts/${name.replace(".md", ".html")}">${title}</a>`;      postList.append(li);
     });
 
 
